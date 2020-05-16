@@ -1,15 +1,19 @@
-<!DOCTYPE html
-  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html>
 
-<head runat="server">
-  <title></title>
+<head>
+  <title>Upload image example</title>
   <script src="../common.js" type="text/javascript"></script>
   <script src="./paste-image.js" type="text/javascript"></script>
+  <link rel="stylesheet" type="text/css" href="../image-examples.css">
 </head>
 
-<body onpaste="test(event)">
-  <span id="statusMessage"></span>
+<body onpaste="handlePaste(event)">
+  <div class="content">
+    Copy a part of an image from an image editing program or make a screenshot and paste it on this page.
+    <hr />
+    <span id="statusMessage"></span>
+  </div>
 </body>
 
 </html>

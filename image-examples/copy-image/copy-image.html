@@ -1,17 +1,24 @@
-<!DOCTYPE html
-  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html>
 
-<head runat="server">
-  <title></title>
+<head>
+  <title>Copy image example</title>
   <script src="../common.js" type="text/javascript"></script>
   <script src="./copy-image.js" type="text/javascript"></script>
+  <link rel="stylesheet" type="text/css" href="../image-examples.css">
 </head>
 
 <body>
-  <canvas id="imageCanvas" width="350px" height="200px"></canvas>
-  <button onClick="drawSomething('imageCanvas')">Draw something</button>
-  <button onClick="copyImage()">Copy this image to clipboard</button>
+  <div class="content">
+    <div id="beforeDrawing">
+      <button onClick="drawSomething('imageCanvas'); switchDisplay();">Draw something</button>
+    </div>
+    <div id="afterDrawing" style="display: none">
+      <canvas id="imageCanvas" width="350px" height="200px"></canvas>
+      <hr />
+      <button onClick="copyImage()">Copy this image to the clipboard</button>
+    </div>
+  </div>
 </body>
 
 </html>

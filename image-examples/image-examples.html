@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <link rel="stylesheet" type="text/css" href="image-examples.css">
+</head>
+
+<body>
+  <div class="content">
+    <h1>Working with image files and clipboard items in Javascript</h1>
+    <p>
+      The following are some very simple Javascript code examples, detailing 4 basic image operations.
+      These are useful specifically if we are making an app that does some kind of image manipulation in the client,
+      either through the Canvas API, or through the direct manipulation of individual pixels.
+    </p>
+    <ul>
+      <li>
+        <a href="./upload-image/upload-image.html">Upload an image file</a>: The user uploads an image file into the
+        app, where it gets loaded into memory and
+        analyzed.
+      </li>
+      <li>
+        <a href="./paste-image/paste-image.html">Paste an image from the clipboard</a>: The same as the previous
+        example, but here the image data is read from the
+        system clipboard.
+      </li>
+      <li>
+        <a href="./copy-image/copy-image.html">Copy image</a>: Copy image to the clipboard: Draws an image using the
+        Canvas API and then copies it to the system clipboard (<a
+          href="https://caniuse.com/#feat=mdn-api_clipboard_write">This unfortunately does not work on Firefox yet</a>)
+      </li>
+      <li>
+        <a href="./download-image/download-image.html">Download image</a>: Draws an image using the Canvas API and then
+        downloads it
+      </li>
+    </ul>
+  </div>
+</body>
+
+</html>
