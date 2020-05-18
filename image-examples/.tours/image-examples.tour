@@ -1,0 +1,206 @@
+{
+  "title": "Image Upload example",
+  "steps": [
+    {
+      "file": "upload-image/upload-image.js",
+      "line": 5,
+      "description": "To upload a file we need this kind of file upload element, with an onchange handler to handle the file upload\n<input type=\"file\" onchange=\"handleUpload\">",
+      "selection": {
+        "start": {
+          "line": 5,
+          "character": 3
+        },
+        "end": {
+          "line": 5,
+          "character": 63
+        }
+      }
+    },
+    {
+      "file": "upload-image/upload-image.js",
+      "line": 17,
+      "description": "Next we simulate a click, so the file upload window opens",
+      "selection": {
+        "start": {
+          "line": 17,
+          "character": 3
+        },
+        "end": {
+          "line": 17,
+          "character": 31
+        }
+      }
+    },
+    {
+      "file": "upload-image/upload-image.js",
+      "line": 9,
+      "description": "After the upload is complete, we can get the uploaded file from uploadElement.files[0].\nThere could be more than 1 file in this array if our file input element had the attribute \"multiple\", but in this case it doesn't.",
+      "selection": {
+        "start": {
+          "line": 9,
+          "character": 5
+        },
+        "end": {
+          "line": 9,
+          "character": 55
+        }
+      }
+    },
+    {
+      "file": "upload-image/upload-image.js",
+      "line": 13,
+      "description": "Next we call this function, which extracts pixel information from the uploaded image.",
+      "selection": {
+        "start": {
+          "line": 13,
+          "character": 5
+        },
+        "end": {
+          "line": 13,
+          "character": 71
+        }
+      }
+    },
+    {
+      "file": "common.js",
+      "line": 3,
+      "description": "The uploadedFile object is just a reference to a file, but at this point we don't know what's inside. For this we need to use a FileReader.\n\nFileReader can read any kind of file, not just images, check out https://humanwhocodes.com/blog/2012/05/15/working-with-files-in-javascript-part-2/",
+      "selection": {
+        "start": {
+          "line": 3,
+          "character": 3
+        },
+        "end": {
+          "line": 3,
+          "character": 39
+        }
+      }
+    },
+    {
+      "file": "common.js",
+      "line": 33,
+      "description": "To read the file's contents, we use the readAsDataURL method, which returns the file's contents in the form of a dataURL.\nThe data URL is a kind of a text representation of a file's contents.\nMore info about dataURLs: https://css-tricks.com/data-uris/",
+      "selection": {
+        "start": {
+          "line": 33,
+          "character": 3
+        },
+        "end": {
+          "line": 33,
+          "character": 42
+        }
+      }
+    },
+    {
+      "file": "common.js",
+      "line": 6,
+      "description": "We need to add an onload handler to process the parsed dataURL.",
+      "selection": {
+        "start": {
+          "line": 6,
+          "character": 3
+        },
+        "end": {
+          "line": 6,
+          "character": 38
+        }
+      }
+    },
+    {
+      "file": "common.js",
+      "line": 8,
+      "description": "In the handler, we can get the dataURL from progress.target.result",
+      "selection": {
+        "start": {
+          "line": 8,
+          "character": 5
+        },
+        "end": {
+          "line": 8,
+          "character": 43
+        }
+      }
+    },
+    {
+      "file": "common.js",
+      "line": 29,
+      "description": "Now we can display the loaded data in an image element, because the image loads in the same way whether we use a dataURL or a regular URL.\nAn image element using a data URL looks something like this: <img src=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAA...",
+      "selection": {
+        "start": {
+          "line": 29,
+          "character": 5
+        },
+        "end": {
+          "line": 29,
+          "character": 24
+        }
+      }
+    },
+    {
+      "file": "common.js",
+      "line": 12,
+      "description": "If we just wanted to display the uploaded image in our application, this would be all, but if we also want to view information about the image's pixels, we need to draw it in a canvas and then read the pixels from the canvas.\nWe can do this in the image's onload handler.",
+      "selection": {
+        "start": {
+          "line": 12,
+          "character": 5
+        },
+        "end": {
+          "line": 12,
+          "character": 27
+        }
+      }
+    },
+    {
+      "file": "common.js",
+      "line": 18,
+      "description": "We create a new canvas element with the same dimensions as the image and draw the image onto it.",
+      "selection": {
+        "start": {
+          "line": 14,
+          "character": 1
+        },
+        "end": {
+          "line": 18,
+          "character": 38
+        }
+      }
+    },
+    {
+      "file": "common.js",
+      "line": 21,
+      "description": "Now we can read the ImageData of the image from the canvas.",
+      "selection": {
+        "start": {
+          "line": 21,
+          "character": 7
+        },
+        "end": {
+          "line": 21,
+          "character": 79
+        }
+      }
+    },
+    {
+      "file": "../../../../../usr/share/code/resources/app/extensions/node_modules/typescript/lib/lib.dom.d.ts",
+      "line": 9803,
+      "description": "If you are interested, this is what the ImageData object contains:\n- width in pixels\n- height in pixels\n- data: this is a one-dimensional array of all pixel data from the image, with each pixel represented by 4 values (R,G,B,A) in range 0-255",
+      "selection": {
+        "start": {
+          "line": 9803,
+          "character": 1
+        },
+        "end": {
+          "line": 9816,
+          "character": 2
+        }
+      }
+    },
+    {
+      "file": "upload-image/upload-image.js",
+      "line": 21,
+      "description": "Finally we got the ImageData, so we can continue processing it in any way we want."
+    }
+  ],
+  "ref": "master"
+}
