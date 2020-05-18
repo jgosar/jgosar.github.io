@@ -2,9 +2,24 @@
   "title": "Image Upload example",
   "steps": [
     {
+      "file": "upload-image\\upload-image.html",
+      "line": 14,
+      "description": "In the DOM we only have this button that triggers subsequent Javascript events.\r\n\r\nIn the logic i will be presenting, i will be using the built-in logic of several other HTML elements that will only exist in Javascript code, but not in the DOM.\r\nThese include:\r\n- <input type=\"file\"> to upload the file\r\n- <img> to render the image\r\n- <canvas> to get pixel data from the image",
+      "selection": {
+        "start": {
+          "line": 14,
+          "character": 5
+        },
+        "end": {
+          "line": 14,
+          "character": 102
+        }
+      }
+    },
+    {
       "file": "upload-image/upload-image.js",
       "line": 5,
-      "description": "To upload a file we need this kind of file upload element, with an onchange handler to handle the file upload\n<input type=\"file\" onchange=\"handleUpload\">",
+      "description": "To upload a file we need this kind of file upload element, with an onchange handler to handle the file upload\\\n<input type=\"file\" onchange=\"handleUpload\">",
       "selection": {
         "start": {
           "line": 5,
@@ -34,7 +49,7 @@
     {
       "file": "upload-image/upload-image.js",
       "line": 9,
-      "description": "After the upload is complete, we can get the uploaded file from uploadElement.files[0].\nThere could be more than 1 file in this array if our file input element had the attribute \"multiple\", but in this case it doesn't.",
+      "description": "After the upload is complete, we can get the uploaded file from uploadElement.files[0].\\\nThere could be more than 1 file in this array if our file input element had the attribute \"multiple\", but in this case it doesn't.",
       "selection": {
         "start": {
           "line": 9,
@@ -124,7 +139,7 @@
     {
       "file": "common.js",
       "line": 29,
-      "description": "Now we can display the loaded data in an image element, because the image loads in the same way whether we use a dataURL or a regular URL.\nAn image element using a data URL looks something like this: <img src=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAA...",
+      "description": "Now we can display the loaded data in an image element, because the image loads in the same way whether we use a dataURL or a regular URL.\\\nAn image element using a data URL looks something like this: <img src=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAA...",
       "selection": {
         "start": {
           "line": 29,
@@ -139,7 +154,7 @@
     {
       "file": "common.js",
       "line": 12,
-      "description": "If we just wanted to display the uploaded image in our application, this would be all, but if we also want to view information about the image's pixels, we need to draw it in a canvas and then read the pixels from the canvas.\nWe can do this in the image's onload handler.",
+      "description": "If we just wanted to display the uploaded image in our application, this would be all, but if we also want to view information about the image's pixels, we need to draw it in a canvas and then read the pixels from the canvas.\\\nWe can do this in the image's onload handler.",
       "selection": {
         "start": {
           "line": 12,

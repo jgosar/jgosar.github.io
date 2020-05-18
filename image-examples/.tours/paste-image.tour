@@ -1,0 +1,41 @@
+{
+  "title": "Paste Image",
+  "steps": [
+    {
+      "file": "paste-image\\paste-image.html",
+      "line": 12,
+      "description": "The first thing we need to do is to add an onpaste handler to the HTML element, into which want to paste the clipboard data. This can even be the whole HTML body."
+    },
+    {
+      "file": "paste-image\\paste-image.js",
+      "line": 3,
+      "description": "In the paste handler, we can get the File reference from the clipboard event like this.\r\nOf course, we should also add appropriate error handling in case the pasted data is not what we expected.",
+      "selection": {
+        "start": {
+          "line": 3,
+          "character": 3
+        },
+        "end": {
+          "line": 3,
+          "character": 63
+        }
+      }
+    },
+    {
+      "file": "paste-image%5Cpaste-image.js",
+      "line": 7,
+      "description": "The data we just got from the clipboard is actually in the same form (Javascript Blob) as in the previous example, so we can reuse the same same logic to extract the ImageData from it.",
+      "selection": {
+        "start": {
+          "line": 7,
+          "character": 5
+        },
+        "end": {
+          "line": 7,
+          "character": 69
+        }
+      }
+    }
+  ],
+  "ref": "master"
+}
