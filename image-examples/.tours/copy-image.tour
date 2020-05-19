@@ -1,36 +1,6 @@
 {
-  "title": "Copy image",
+  "title": "3. Copy image",
   "steps": [
-    {
-      "file": "copy-image/copy-image.html",
-      "line": 15,
-      "description": "This button just calls the Canvas API to draw a picture on a canvas, so we will have something to copy.",
-      "selection": {
-        "start": {
-          "line": 15,
-          "character": 7
-        },
-        "end": {
-          "line": 15,
-          "character": 95
-        }
-      }
-    },
-    {
-      "file": "copy-image/copy-image.html",
-      "line": 20,
-      "description": "Clicking on this button starts the copying to clipboard.",
-      "selection": {
-        "start": {
-          "line": 20,
-          "character": 7
-        },
-        "end": {
-          "line": 20,
-          "character": 78
-        }
-      }
-    },
     {
       "file": "copy-image/copy-image.js",
       "line": 4,
@@ -63,30 +33,30 @@
     },
     {
       "file": "copy-image/copy-image.js",
-      "line": 10,
-      "description": "Now that we got the image file data, we can save to a ClipboadItem.\\\r\nIn the ClipboardItem object, the key is the MIME type of the object we're writing, and the value in the Blob containing file data.",
+      "line": 11,
+      "description": "Now that we got the image file data, we can save to a ClipboadItem.\\\r\nIn the ClipboardItem object, the key is the MIME type of the object we're writing, and the value is the Blob containing file data.",
       "selection": {
         "start": {
-          "line": 10,
+          "line": 11,
           "character": 5
         },
         "end": {
-          "line": 10,
+          "line": 11,
           "character": 59
         }
       }
     },
     {
       "file": "copy-image/copy-image.js",
-      "line": 11,
-      "description": "We can then save the ClipboardItem to the system clipboard.\\\nUnfortunately not all browsers support this feature. It works properly in Chrome, but not in Firefox.\\\nhttps://developer.mozilla.org/en-US/docs/Web/API/Clipboard/write",
+      "line": 12,
+      "description": "We can then save the ClipboardItem to the system clipboard.\\\nUnfortunately not all browsers support this feature. It works properly in Chrome, but not in Firefox.\\\nhttps://bugzilla.mozilla.org/show_bug.cgi?id=1616388",
       "selection": {
         "start": {
-          "line": 11,
+          "line": 12,
           "character": 1
         },
         "end": {
-          "line": 12,
+          "line": 13,
           "character": 1
         }
       }
