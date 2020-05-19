@@ -1,8 +1,17 @@
 body{
   display: flex;
-  justify-content: space-around;
+  flex-direction: column;
+  align-items: center;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
   font-size: min(3.5vw, 1em);
+}
+
+body>div{
+  border: 1px solid black;
+  border-radius: 10px;
+  padding: 10px;
+  margin: 10px;
+  box-shadow: 10px 10px 10px 0px rgba(0,0,0,0.75);
 }
 
 h1{
@@ -24,8 +33,21 @@ button:hover{
 
 .content{
   width: min(90vw, 500px);
-  border: 1px solid black;
-  border-radius: 10px;
-  padding: 10px;
-  box-shadow: 10px 10px 10px 0px rgba(0,0,0,0.75);
+}
+
+.pro-tip{
+  width: 180px;
+  background-color: #FF2828;
+  color: white;
+  font-weight: bold;
+}
+
+.pro-tip ul{
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.pro-tip li::before{
+  content: "\1F449 ";
 }

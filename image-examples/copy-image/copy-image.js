@@ -7,6 +7,7 @@ function copyImage() {
   //See https://developer.mozilla.org/en-US/docs/Web/API/HTMLCanvasElement/toBlob
   canvas.toBlob((blob) => {
     // Now that we got the image file data, we can just write it to the clipboard. Unfortunately, not all browsers support this feature
+    // See https://bugzilla.mozilla.org/show_bug.cgi?id=1616388
     const item = new ClipboardItem({ "image/png": blob });
     navigator.clipboard.write([item]);
   });
