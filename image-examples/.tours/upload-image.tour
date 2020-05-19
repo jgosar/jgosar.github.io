@@ -1,8 +1,8 @@
 {
-  "title": "Image Upload example",
+  "title": "Upload image",
   "steps": [
     {
-      "file": "upload-image\\upload-image.html",
+      "file": "upload-image/upload-image.html",
       "line": 14,
       "description": "In the DOM we only have this button that triggers subsequent Javascript events.\r\n\r\nIn the logic i will be presenting, i will be using the built-in logic of several other HTML elements that will only exist in Javascript code, but not in the DOM.\r\nThese include:\r\n- <input type=\"file\"> to upload the file\r\n- <img> to render the image\r\n- <canvas> to get pixel data from the image",
       "selection": {

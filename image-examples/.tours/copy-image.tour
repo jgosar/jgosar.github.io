@@ -2,7 +2,7 @@
   "title": "Copy image",
   "steps": [
     {
-      "file": "copy-image\\copy-image.html",
+      "file": "copy-image/copy-image.html",
       "line": 15,
       "description": "This button just calls the Canvas API to draw a picture on a canvas, so we will have something to copy.",
       "selection": {
@@ -17,7 +17,7 @@
       }
     },
     {
-      "file": "copy-image%5Ccopy-image.html",
+      "file": "copy-image/copy-image.html",
       "line": 20,
       "description": "Clicking on this button starts the copying to clipboard.",
       "selection": {
@@ -32,7 +32,7 @@
       }
     },
     {
-      "file": "copy-image\\copy-image.js",
+      "file": "copy-image/copy-image.js",
       "line": 4,
       "description": "We need the image to be drawn on a canvas in order to copy it to the clipboard, luckily in our example it already is on a canvas\\\r\nBut if you wanted to do this with an <img> element, you would first have to render the image onto a canvas. That would work something like this:\\\r\nconst canvas = document.createElement('canvas');\\\r\ncanvas.width = image.width;\\\r\ncanvas.height = image.height;\\\r\nconst context = canvas.getContext('2d');\\\r\ncontext.drawImage(image, 0, 0);",
       "selection": {
@@ -47,7 +47,7 @@
       }
     },
     {
-      "file": "copy-image%5Ccopy-image.js",
+      "file": "copy-image/copy-image.js",
       "line": 8,
       "description": "The Canvas.toBlob function gets image file data from the canvas. If no parameters are supplied, you get a PNG image, but if you wish, can also get a JPG with a specified compression level.\\\r\nSee https://developer.mozilla.org/en-US/docs/Web/API/HTMLCanvasElement/toBlob",
       "selection": {
@@ -62,17 +62,32 @@
       }
     },
     {
-      "file": "copy-image\\copy-image.js",
+      "file": "copy-image/copy-image.js",
       "line": 10,
-      "description": "Now that we got the image file data, we can just write it to the clipboard.\\\r\nIn the ClipboardItem object, the key is the MIME type of the object we're writing, and the value in the Blob containing file data.\r\n\r\nUnfortunately not all browsers support this feature. It works properly in Chrome, but not in Firefox.\\\r\nhttps://developer.mozilla.org/en-US/docs/Web/API/Clipboard/write",
+      "description": "Now that we got the image file data, we can save to a ClipboadItem.\\\r\nIn the ClipboardItem object, the key is the MIME type of the object we're writing, and the value in the Blob containing file data.",
       "selection": {
         "start": {
-          "line": 9,
-          "character": 8
+          "line": 10,
+          "character": 5
         },
         "end": {
-          "line": 9,
-          "character": 83
+          "line": 10,
+          "character": 59
+        }
+      }
+    },
+    {
+      "file": "copy-image/copy-image.js",
+      "line": 11,
+      "description": "We can then save the ClipboardItem to the system clipboard.\\\nUnfortunately not all browsers support this feature. It works properly in Chrome, but not in Firefox.\\\nhttps://developer.mozilla.org/en-US/docs/Web/API/Clipboard/write",
+      "selection": {
+        "start": {
+          "line": 11,
+          "character": 1
+        },
+        "end": {
+          "line": 12,
+          "character": 1
         }
       }
     }
