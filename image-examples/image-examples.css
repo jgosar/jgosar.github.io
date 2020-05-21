@@ -37,17 +37,24 @@ button:hover{
 
 .pro-tip{
   width: 180px;
-  background-color: #FF2828;
+  background-color: #26A5FF;
   color: white;
   font-weight: bold;
 }
 
-.pro-tip ul{
+ul{
   list-style: none;
-  padding: 0;
+  padding-inline-start: 20px;
   margin: 0;
+  position: relative;
 }
 
-.pro-tip li::before{
+li{
+  padding: 2px;
+}
+
+li::before{
   content: "\1F449 ";
+  position: absolute;
+  left: 0px;
 }
