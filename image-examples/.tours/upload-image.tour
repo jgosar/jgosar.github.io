@@ -1,8 +1,8 @@
 {
-  "title": "Image Upload example",
+  "title": "1. Upload image",
   "steps": [
     {
-      "file": "upload-image\\upload-image.html",
+      "file": "upload-image/upload-image.html",
       "line": 14,
       "description": "In the DOM we only have this button that triggers subsequent Javascript events.\r\n\r\nIn the logic i will be presenting, i will be using the built-in logic of several other HTML elements that will only exist in Javascript code, but not in the DOM.\r\nThese include:\r\n- <input type=\"file\"> to upload the file\r\n- <img> to render the image\r\n- <canvas> to get pixel data from the image",
       "selection": {
@@ -18,7 +18,7 @@
     },
     {
       "file": "upload-image/upload-image.js",
-      "line": 5,
+      "line": 7,
       "description": "To upload a file we need this kind of file upload element, with an onchange handler to handle the file upload\\\n<input type=\"file\" onchange=\"handleUpload\">",
       "selection": {
         "start": {
@@ -26,8 +26,8 @@
           "character": 3
         },
         "end": {
-          "line": 5,
-          "character": 63
+          "line": 7,
+          "character": 41
         }
       }
     },
@@ -198,7 +198,7 @@
     },
     {
       "file": "../../../../../usr/share/code/resources/app/extensions/node_modules/typescript/lib/lib.dom.d.ts",
-      "line": 9803,
+      "line": 9816,
       "description": "If you are interested, this is what the ImageData object contains:\n- width in pixels\n- height in pixels\n- data: this is a one-dimensional array of all pixel data from the image, with each pixel represented by 4 values (R,G,B,A) in range 0-255",
       "selection": {
         "start": {

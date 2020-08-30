@@ -1,0 +1,51 @@
+{
+  "title": "4. Download image",
+  "steps": [
+    {
+      "file": "download-image/download-image.js",
+      "line": 4,
+      "description": "In order to download a file, we need to use an element like this:\\\n<a href=\"file_url\" download=\"file_name\">Download</a>\n\nIn our case, we don't have a file URL, but we can use a dataURL, which behaves in the same way.",
+      "selection": {
+        "start": {
+          "line": 4,
+          "character": 3
+        },
+        "end": {
+          "line": 4,
+          "character": 61
+        }
+      }
+    },
+    {
+      "file": "download-image/download-image.js",
+      "line": 6,
+      "description": "We can get the dataURL from the canvas by using the canvas.toDataURL function.\\\nAs mentioned previously, the dataUrl contains the file's content encoded as text, for example \"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAA...\"",
+      "selection": {
+        "start": {
+          "line": 6,
+          "character": 3
+        },
+        "end": {
+          "line": 6,
+          "character": 67
+        }
+      }
+    },
+    {
+      "file": "download-image/download-image.js",
+      "line": 7,
+      "description": "Finally we set the file name and trigger the download by simulating a click on this element.",
+      "selection": {
+        "start": {
+          "line": 7,
+          "character": 3
+        },
+        "end": {
+          "line": 8,
+          "character": 33
+        }
+      }
+    }
+  ],
+  "ref": "master"
+}
