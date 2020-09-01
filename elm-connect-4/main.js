@@ -5357,90 +5357,28 @@ var $author$project$Main$getLowestFreeCell = F2(
 	function (columnIndex, field) {
 		return A3($author$project$Main$getLowestFreeCellAboveRow, columnIndex, field, $author$project$Main$fieldHeight - 1);
 	});
-var $author$project$Main$Down = 2;
-var $author$project$Main$LeftDown = 3;
-var $author$project$Main$Right = 0;
-var $author$project$Main$RightDown = 1;
-var $author$project$Main$convertToScore = function (goodTokens) {
-	return (goodTokens === 4) ? 1000000 : ((goodTokens === 3) ? 100 : ((goodTokens === 2) ? 10 : ((goodTokens === 1) ? 1 : 0)));
-};
-var $elm$core$Array$length = function (_v0) {
-	var len = _v0.a;
-	return len;
-};
-var $elm$core$Elm$JsArray$map = _JsArray_map;
-var $elm$core$Array$map = F2(
-	function (func, _v0) {
-		var len = _v0.a;
-		var startShift = _v0.b;
-		var tree = _v0.c;
-		var tail = _v0.d;
-		var helper = function (node) {
-			if (!node.$) {
-				var subTree = node.a;
-				return $elm$core$Array$SubTree(
-					A2($elm$core$Elm$JsArray$map, helper, subTree));
-			} else {
-				var values = node.a;
-				return $elm$core$Array$Leaf(
-					A2($elm$core$Elm$JsArray$map, func, values));
-			}
-		};
-		return A4(
-			$elm$core$Array$Array_elm_builtin,
-			len,
-			startShift,
-			A2($elm$core$Elm$JsArray$map, helper, tree),
-			A2($elm$core$Elm$JsArray$map, func, tail));
-	});
-var $elm$core$Basics$neq = _Utils_notEqual;
-var $author$project$Main$countGoodTokens = F3(
-	function (tokenType, field, coordsList) {
-		if (coordsList.$ === 1) {
-			return 0;
-		} else {
-			var coordsListValue = coordsList.a;
-			var tokens = A2(
-				$elm$core$Array$map,
-				$author$project$Main$getCellValue(field),
-				coordsListValue);
-			var goodTokensCount = $elm$core$Array$length(
-				A2(
-					$elm$core$Array$filter,
-					function (token) {
-						return _Utils_eq(token, tokenType);
-					},
-					tokens));
-			var badTokensCount = $elm$core$Array$length(
-				A2(
-					$elm$core$Array$filter,
-					function (token) {
-						return (!_Utils_eq(token, tokenType)) && (!(!token));
-					},
-					tokens));
-			return (badTokensCount > 0) ? 0 : goodTokensCount;
-		}
-	});
-var $author$project$Main$validateCoords = function (coords) {
-	return ((coords.e >= 0) && ((_Utils_cmp(coords.e, $author$project$Main$fieldWidth) < 0) && ((coords.f >= 0) && (_Utils_cmp(coords.f, $author$project$Main$fieldHeight) < 0)))) ? $elm$core$Maybe$Just(coords) : $elm$core$Maybe$Nothing;
-};
-var $author$project$Main$getNextCoords = F2(
-	function (coords, direction) {
-		return (!direction) ? $author$project$Main$validateCoords(
-			{e: coords.e + 1, f: coords.f}) : ((direction === 1) ? $author$project$Main$validateCoords(
-			{e: coords.e + 1, f: coords.f + 1}) : ((direction === 2) ? $author$project$Main$validateCoords(
-			{e: coords.e, f: coords.f + 1}) : ((direction === 3) ? $author$project$Main$validateCoords(
-			{e: coords.e - 1, f: coords.f + 1}) : $elm$core$Maybe$Nothing)));
-	});
-var $elm$core$Maybe$map = F2(
-	function (f, maybe) {
-		if (!maybe.$) {
-			var value = maybe.a;
-			return $elm$core$Maybe$Just(
-				f(value));
-		} else {
-			return $elm$core$Maybe$Nothing;
-		}
+var $elm$core$Elm$JsArray$appendN = _JsArray_appendN;
+var $elm$core$Elm$JsArray$slice = _JsArray_slice;
+var $elm$core$Array$appendHelpBuilder = F2(
+	function (tail, builder) {
+		var tailLen = $elm$core$Elm$JsArray$length(tail);
+		var notAppended = ($elm$core$Array$branchFactor - $elm$core$Elm$JsArray$length(builder.c)) - tailLen;
+		var appended = A3($elm$core$Elm$JsArray$appendN, $elm$core$Array$branchFactor, builder.c, tail);
+		return (notAppended < 0) ? {
+			d: A2(
+				$elm$core$List$cons,
+				$elm$core$Array$Leaf(appended),
+				builder.d),
+			a: builder.a + 1,
+			c: A3($elm$core$Elm$JsArray$slice, notAppended, tailLen, tail)
+		} : ((!notAppended) ? {
+			d: A2(
+				$elm$core$List$cons,
+				$elm$core$Array$Leaf(appended),
+				builder.d),
+			a: builder.a + 1,
+			c: $elm$core$Elm$JsArray$empty
+		} : {d: builder.d, a: builder.a, c: appended});
 	});
 var $elm$core$Elm$JsArray$push = _JsArray_push;
 var $elm$core$Elm$JsArray$singleton = _JsArray_singleton;
@@ -5512,93 +5450,6 @@ var $elm$core$Array$unsafeReplaceTail = F2(
 		} else {
 			return A4($elm$core$Array$Array_elm_builtin, newArrayLen, startShift, tree, newTail);
 		}
-	});
-var $elm$core$Array$push = F2(
-	function (a, array) {
-		var tail = array.d;
-		return A2(
-			$elm$core$Array$unsafeReplaceTail,
-			A2($elm$core$Elm$JsArray$push, a, tail),
-			array);
-	});
-var $author$project$Main$unMaybe = function (x) {
-	if (x.$ === 1) {
-		return $elm$core$Maybe$Nothing;
-	} else {
-		var innerX = x.a;
-		return innerX;
-	}
-};
-var $author$project$Main$unMaybeMap = F2(
-	function (x, y) {
-		return $author$project$Main$unMaybe(
-			A2($elm$core$Maybe$map, x, y));
-	});
-var $author$project$Main$getCoordsList = F4(
-	function (length, direction, field, coords) {
-		if (length === 1) {
-			return $elm$core$Maybe$Just(
-				$elm$core$Array$fromList(
-					_List_fromArray(
-						[coords])));
-		} else {
-			var nextCoords = A2($author$project$Main$getNextCoords, coords, direction);
-			var nextCoordsList = A2(
-				$author$project$Main$unMaybeMap,
-				A3($author$project$Main$getCoordsList, length - 1, direction, field),
-				nextCoords);
-			return A2(
-				$elm$core$Maybe$map,
-				$elm$core$Array$push(coords),
-				nextCoordsList);
-		}
-	});
-var $elm$core$List$sum = function (numbers) {
-	return A3($elm$core$List$foldl, $elm$core$Basics$add, 0, numbers);
-};
-var $author$project$Main$cellScore = F3(
-	function (field, tokenType, coords) {
-		var directions = $elm$core$Array$fromList(
-			_List_fromArray(
-				[0, 1, 2, 3]));
-		var cellGroups = A2(
-			$elm$core$Array$map,
-			function (direction) {
-				return A4($author$project$Main$getCoordsList, 4, direction, field, coords);
-			},
-			directions);
-		return $elm$core$List$sum(
-			$elm$core$Array$toList(
-				A2(
-					$elm$core$Array$map,
-					function (cellGroup) {
-						return $author$project$Main$convertToScore(
-							A3($author$project$Main$countGoodTokens, tokenType, field, cellGroup));
-					},
-					cellGroups)));
-	});
-var $elm$core$Elm$JsArray$appendN = _JsArray_appendN;
-var $elm$core$Elm$JsArray$slice = _JsArray_slice;
-var $elm$core$Array$appendHelpBuilder = F2(
-	function (tail, builder) {
-		var tailLen = $elm$core$Elm$JsArray$length(tail);
-		var notAppended = ($elm$core$Array$branchFactor - $elm$core$Elm$JsArray$length(builder.c)) - tailLen;
-		var appended = A3($elm$core$Elm$JsArray$appendN, $elm$core$Array$branchFactor, builder.c, tail);
-		return (notAppended < 0) ? {
-			d: A2(
-				$elm$core$List$cons,
-				$elm$core$Array$Leaf(appended),
-				builder.d),
-			a: builder.a + 1,
-			c: A3($elm$core$Elm$JsArray$slice, notAppended, tailLen, tail)
-		} : ((!notAppended) ? {
-			d: A2(
-				$elm$core$List$cons,
-				$elm$core$Array$Leaf(appended),
-				builder.d),
-			a: builder.a + 1,
-			c: $elm$core$Elm$JsArray$empty
-		} : {d: builder.d, a: builder.a, c: appended});
 	});
 var $elm$core$Array$appendHelpTree = F2(
 	function (toAppend, array) {
@@ -5688,6 +5539,31 @@ var $author$project$Main$flatten = function (array) {
 		$elm$core$Array$fromList(_List_Nil),
 		array);
 };
+var $elm$core$Elm$JsArray$map = _JsArray_map;
+var $elm$core$Array$map = F2(
+	function (func, _v0) {
+		var len = _v0.a;
+		var startShift = _v0.b;
+		var tree = _v0.c;
+		var tail = _v0.d;
+		var helper = function (node) {
+			if (!node.$) {
+				var subTree = node.a;
+				return $elm$core$Array$SubTree(
+					A2($elm$core$Elm$JsArray$map, helper, subTree));
+			} else {
+				var values = node.a;
+				return $elm$core$Array$Leaf(
+					A2($elm$core$Elm$JsArray$map, func, values));
+			}
+		};
+		return A4(
+			$elm$core$Array$Array_elm_builtin,
+			len,
+			startShift,
+			A2($elm$core$Elm$JsArray$map, helper, tree),
+			A2($elm$core$Elm$JsArray$map, func, tail));
+	});
 var $author$project$Main$getRowCoords = function (row) {
 	return A2(
 		$elm$core$Array$map,
@@ -5697,20 +5573,150 @@ var $author$project$Main$getRowCoords = function (row) {
 		$elm$core$Array$fromList(
 			A2($elm$core$List$range, 0, $author$project$Main$fieldWidth - 1)));
 };
-var $author$project$Main$getAllCoords = $author$project$Main$flatten(
+var $author$project$Main$allCoords = $author$project$Main$flatten(
 	A2(
 		$elm$core$Array$map,
 		$author$project$Main$getRowCoords,
 		$elm$core$Array$fromList(
 			A2($elm$core$List$range, 0, $author$project$Main$fieldHeight - 1))));
+var $author$project$Main$Down = 2;
+var $author$project$Main$LeftDown = 3;
+var $author$project$Main$Right = 0;
+var $author$project$Main$RightDown = 1;
+var $author$project$Main$validateCoords = function (coords) {
+	return ((coords.e >= 0) && ((_Utils_cmp(coords.e, $author$project$Main$fieldWidth) < 0) && ((coords.f >= 0) && (_Utils_cmp(coords.f, $author$project$Main$fieldHeight) < 0)))) ? $elm$core$Maybe$Just(coords) : $elm$core$Maybe$Nothing;
+};
+var $author$project$Main$getNextCoords = F2(
+	function (coords, direction) {
+		return (!direction) ? $author$project$Main$validateCoords(
+			{e: coords.e + 1, f: coords.f}) : ((direction === 1) ? $author$project$Main$validateCoords(
+			{e: coords.e + 1, f: coords.f + 1}) : ((direction === 2) ? $author$project$Main$validateCoords(
+			{e: coords.e, f: coords.f + 1}) : ((direction === 3) ? $author$project$Main$validateCoords(
+			{e: coords.e - 1, f: coords.f + 1}) : $elm$core$Maybe$Nothing)));
+	});
+var $elm$core$Maybe$map = F2(
+	function (f, maybe) {
+		if (!maybe.$) {
+			var value = maybe.a;
+			return $elm$core$Maybe$Just(
+				f(value));
+		} else {
+			return $elm$core$Maybe$Nothing;
+		}
+	});
+var $elm$core$Array$push = F2(
+	function (a, array) {
+		var tail = array.d;
+		return A2(
+			$elm$core$Array$unsafeReplaceTail,
+			A2($elm$core$Elm$JsArray$push, a, tail),
+			array);
+	});
+var $author$project$Main$unMaybe = function (x) {
+	if (x.$ === 1) {
+		return $elm$core$Maybe$Nothing;
+	} else {
+		var innerX = x.a;
+		return innerX;
+	}
+};
+var $author$project$Main$unMaybeMap = F2(
+	function (x, y) {
+		return $author$project$Main$unMaybe(
+			A2($elm$core$Maybe$map, x, y));
+	});
+var $author$project$Main$getComboForCellAndDirection = F3(
+	function (length, direction, coords) {
+		if (length === 1) {
+			return $elm$core$Maybe$Just(
+				$elm$core$Array$fromList(
+					_List_fromArray(
+						[coords])));
+		} else {
+			var nextCoords = A2($author$project$Main$getNextCoords, coords, direction);
+			var nextCoordsList = A2(
+				$author$project$Main$unMaybeMap,
+				A2($author$project$Main$getComboForCellAndDirection, length - 1, direction),
+				nextCoords);
+			return A2(
+				$elm$core$Maybe$map,
+				$elm$core$Array$push(coords),
+				nextCoordsList);
+		}
+	});
+var $elm_community$maybe_extra$Maybe$Extra$cons = F2(
+	function (item, list) {
+		if (!item.$) {
+			var v = item.a;
+			return A2($elm$core$List$cons, v, list);
+		} else {
+			return list;
+		}
+	});
+var $elm_community$maybe_extra$Maybe$Extra$values = A2($elm$core$List$foldr, $elm_community$maybe_extra$Maybe$Extra$cons, _List_Nil);
+var $author$project$Main$removeNothings = function (array) {
+	return $elm$core$Array$fromList(
+		$elm_community$maybe_extra$Maybe$Extra$values(
+			$elm$core$Array$toList(array)));
+};
+var $author$project$Main$combosForCell = function (coords) {
+	var directions = $elm$core$Array$fromList(
+		_List_fromArray(
+			[0, 1, 2, 3]));
+	return $author$project$Main$removeNothings(
+		A2(
+			$elm$core$Array$map,
+			function (direction) {
+				return A3($author$project$Main$getComboForCellAndDirection, 4, direction, coords);
+			},
+			directions));
+};
+var $author$project$Main$allCellCombos = $author$project$Main$flatten(
+	A2($elm$core$Array$map, $author$project$Main$combosForCell, $author$project$Main$allCoords));
+var $author$project$Main$convertToScore = function (goodTokens) {
+	return (goodTokens === 4) ? 1000000 : ((goodTokens === 3) ? 100 : ((goodTokens === 2) ? 10 : ((goodTokens === 1) ? 1 : 0)));
+};
+var $elm$core$Array$length = function (_v0) {
+	var len = _v0.a;
+	return len;
+};
+var $elm$core$Basics$neq = _Utils_notEqual;
+var $author$project$Main$countGoodTokens = F3(
+	function (tokenType, field, coordsList) {
+		var tokens = A2(
+			$elm$core$Array$map,
+			$author$project$Main$getCellValue(field),
+			coordsList);
+		var goodTokensCount = $elm$core$Array$length(
+			A2(
+				$elm$core$Array$filter,
+				function (token) {
+					return _Utils_eq(token, tokenType);
+				},
+				tokens));
+		var badTokensCount = $elm$core$Array$length(
+			A2(
+				$elm$core$Array$filter,
+				function (token) {
+					return (!_Utils_eq(token, tokenType)) && (!(!token));
+				},
+				tokens));
+		return (badTokensCount > 0) ? 0 : goodTokensCount;
+	});
+var $elm$core$List$sum = function (numbers) {
+	return A3($elm$core$List$foldl, $elm$core$Basics$add, 0, numbers);
+};
 var $author$project$Main$totalScore = F2(
 	function (tokenType, field) {
 		return $elm$core$List$sum(
 			$elm$core$Array$toList(
 				A2(
 					$elm$core$Array$map,
-					A2($author$project$Main$cellScore, field, tokenType),
-					$author$project$Main$getAllCoords)));
+					function (combo) {
+						return $author$project$Main$convertToScore(
+							A3($author$project$Main$countGoodTokens, tokenType, field, combo));
+					},
+					$author$project$Main$allCellCombos)));
 	});
 var $author$project$Main$getWinner = function (field) {
 	return (A2($author$project$Main$totalScore, 1, field) > 1000000) ? 1 : ((A2($author$project$Main$totalScore, 2, field) > 1000000) ? 2 : 0);
@@ -5876,7 +5882,7 @@ var $author$project$Main$update = F2(
 			if (!(!$author$project$Main$getWinner(model1.q))) {
 				return model1;
 			} else {
-				var computersMove = A3($author$project$Main$getBestMove, model1.z, model1.q, 3);
+				var computersMove = A3($author$project$Main$getBestMove, model1.z, model1.q, 4);
 				return A2($author$project$Main$playMove, model1, computersMove.a);
 			}
 		}
