@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="assets/styles.css" />
+    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="text/babel">
+      let n = 10;
+      const DEFAULT_PERSPECTIVE = {
+        x: 1 - 2.5 * n,
+        y: n,
+        z: -48 - 2 * n,
+      };
+      let state = {
+        perspective: { ...DEFAULT_PERSPECTIVE },
+        focus: undefined,
+      };
+
+      class SceneContainer extends React.Component {
+        render() {
+          const boxes = [];
+
+          for (let x = 0; x < 50; x += 5) {
+            for (let z = 0; z < 50; z += 5) {
+              boxes.push(<ALittleBox x={x} z={z} key={x + "|" + z} />);
+            }
+          }
+          return (
+            <div className="wrapper">
+              <div className="three-d-container translated-to-screen-centre">
+                <div
+                  className="three-d-container" // go-touring"
+                  style={{
+                    transform:
+                      "translate3d(" +
+                      state.perspective.x +
+                      "vw, " +
+                      state.perspective.y +
+                      "vw, " +
+                      state.perspective.z +
+                      "vw)",
+                  }}
+                >
+                  {boxes}
+                </div>
+              </div>
+            </div>
+          );
+        }
+      }
+
+      function ALittleBox(props) {
+        return (
+          <div
+            className="three-d-container"
+            style={{
+              transform: "translate3d(" + props.x + "vw, 0, " + props.z + "vw)",
+            }}
+          >
+            <div
+              className="little-box"
+              onClick={(e) => handleClick(props.x, props.z, e)}
+            >
+              <div className="box-side box-top"></div>
+              <div className="box-side box-back"></div>
+              <div className="box-side box-front"></div>
+              <div className="box-side box-right"></div>
+              <div className="box-side box-left"></div>
+              <div className="box-side box-bottom"></div>
+            </div>
+          </div>
+        );
+      }
+
+      function handleClick(x, z, e) {
+        e.preventDefault();
+        if (
+          state.focus === undefined ||
+          state.focus.x !== x ||
+          state.focus.z !== z
+        ) {
+          // Focus on box at coordinates x,z
+          n = 1;
+          state = {
+            perspective: {
+              x: 1 - 2.5 * n - x,
+              y: n,
+              z: -3 - 2 * n - z,
+            },
+            focus: { x, z },
+          };
+        } else {
+          // The box at x,z was already focused, zoom out to wide view
+          n = 10;
+          state = {
+            perspective: { ...DEFAULT_PERSPECTIVE },
+            focus: undefined,
+          };
+        }
+        renderScene();
+      }
+
+      function renderScene() {
+        ReactDOM.render(<SceneContainer />, document.getElementById("root"));
+      }
+
+      renderScene();
+    </script>
+  </body>
+</html>
