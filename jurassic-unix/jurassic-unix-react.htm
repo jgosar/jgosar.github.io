@@ -9,96 +9,260 @@
   <body>
     <div id="root"></div>
     <script type="text/babel">
-      let n = 10;
-      const DEFAULT_PERSPECTIVE = {
-        x: 1 - 2.5 * n,
-        y: n,
-        z: -48 - 2 * n,
+      const THEME_NICE = { name: "theme-nice", baseHue: 200, hueIncrement: 90 };
+      const THEME_DEPRESSING = {
+        name: "theme-depressing",
+        baseHue: 340,
+        hueIncrement: -130,
       };
+      const SELECTED_THEME = THEME_NICE;
+      const SIZE_UNIT = "vw";
+      const SCENE_WIDTH = 1000;
+      const DEFAULT_PERSPECTIVE = getPerspectiveFor(
+        0,
+        0,
+        SCENE_WIDTH,
+        SCENE_WIDTH
+      );
+      const BASE_HUE = 340;
+      const HUE_INCREMENT = -130;
+      const BOX_MARGIN = 0.2; // How much extra space there is around each box
+      const BOX_STRUCTURE = [
+        { id: "box0" },
+        {
+          id: "box1",
+          children: [
+            {
+              id: "box10",
+              children: [
+                {
+                  id: "box100",
+                  children: [
+                    {
+                      id: "box1000",
+                      children: [
+                        { id: "box10000", children: [{ id: "box100000" }] },
+                      ],
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+        },
+        {
+          id: "box2",
+          children: [
+            { id: "box20" },
+            {
+              id: "box21",
+              children: [
+                { id: "box210" },
+                { id: "box211" },
+                { id: "box212" },
+                { id: "box213" },
+                { id: "box214" },
+              ],
+            },
+          ],
+        },
+        { id: "box3" },
+        { id: "box4" },
+        { id: "box5" },
+        { id: "box6" },
+        { id: "box7" },
+        { id: "box8" },
+        { id: "box9" },
+      ];
+
       let state = {
         perspective: { ...DEFAULT_PERSPECTIVE },
-        focus: undefined,
+        focusedBoxId: undefined,
       };
+
+      function getPerspectiveFor(x, y, z, width) {
+        // x, y, z: coordinates of the lower left corner of the object closest to the observer (with maximum z)
+        // width: the width of the object we're looking at (size in direction x)
+        // output: offset to which we need to move the view in order to see the object
+        return { x: -width / 2 - x, y: width / 2.5 - y, z: -width / 3.5 - z };
+      }
+
+      function get3DTranslation(offset) {
+        return (
+          "translate3d(" +
+          offset.x +
+          SIZE_UNIT +
+          ", " +
+          offset.y +
+          SIZE_UNIT +
+          ", " +
+          offset.z +
+          SIZE_UNIT +
+          ")"
+        );
+      }
+
+      function addPositions(position1, position2) {
+        const pos1 = position1 || { x: 0, y: 0, z: 0 };
+        const pos2 = position2 || { x: 0, y: 0, z: 0 };
+
+        return {
+          x: pos1.x + pos2.x,
+          y: pos1.y + pos2.y,
+          z: pos1.z + pos2.z,
+        };
+      }
+
+      function isBrowserFirefox() {
+        return navigator.userAgent.includes("Firefox");
+      }
 
       class SceneContainer extends React.Component {
         render() {
-          const boxes = [];
-
-          for (let x = 0; x < 50; x += 5) {
-            for (let z = 0; z < 50; z += 5) {
-              boxes.push(<ALittleBox x={x} z={z} key={x + "|" + z} />);
-            }
-          }
+          const themeClass = SELECTED_THEME.name;
           return (
-            <div className="wrapper">
+            <div className={"wrapper " + themeClass}>
               <div className="three-d-container translated-to-screen-centre">
-                <div
-                  className="three-d-container" // go-touring"
-                  style={{
-                    transform:
-                      "translate3d(" +
-                      state.perspective.x +
-                      "vw, " +
-                      state.perspective.y +
-                      "vw, " +
-                      state.perspective.z +
-                      "vw)",
-                  }}
+                <PositionedContainer
+                  position={state.perspective}
+                  animated={!isBrowserFirefox()}
                 >
-                  {boxes}
-                </div>
+                  <Box
+                    position={{ x: 0, y: 0, z: 0 }}
+                    absolutePosition={{ x: 0, y: 0, z: 0 }}
+                    width={SCENE_WIDTH}
+                    height={SCENE_WIDTH / 5}
+                    hue={SELECTED_THEME.baseHue}
+                    id={"base"}
+                    key={"base"}
+                  >
+                    <BoxDataGroup
+                      data={BOX_STRUCTURE}
+                      groupWidth={SCENE_WIDTH}
+                      hue={SELECTED_THEME.baseHue + SELECTED_THEME.hueIncrement}
+                    />
+                  </Box>
+                </PositionedContainer>
               </div>
             </div>
           );
         }
       }
 
-      function ALittleBox(props) {
+      function BoxDataGroup(props) {
+        const boxes = [];
+        const boxCount = props.data.length;
+        const boxesInWidth = Math.ceil(Math.sqrt(boxCount));
+        const boxSpace = props.groupWidth / boxesInWidth;
+
+        const boxWidth = (1 - 2 * BOX_MARGIN) * boxSpace;
+        const boxHeight = boxWidth / 5;
+
+        props.data.forEach((box, index) => {
+          const xPos = index % boxesInWidth;
+          const zPos = Math.floor(index / boxesInWidth);
+
+          const boxPosition = {
+            x: (xPos + BOX_MARGIN) * boxSpace,
+            y: 0 - boxHeight,
+            z: (zPos + BOX_MARGIN) * boxSpace,
+          };
+
+          const boxAbsolutePosition = addPositions(
+            boxPosition,
+            props.absolutePosition
+          );
+
+          const childGroup = box.children ? (
+            <BoxDataGroup
+              absolutePosition={boxAbsolutePosition}
+              data={box.children}
+              groupWidth={boxWidth}
+              hue={props.hue + HUE_INCREMENT}
+            />
+          ) : undefined;
+
+          boxes.push(
+            <Box
+              position={boxPosition}
+              absolutePosition={boxAbsolutePosition}
+              width={boxWidth}
+              height={boxHeight}
+              hue={props.hue}
+              id={box.id}
+              key={box.id}
+            >
+              {childGroup}
+            </Box>
+          );
+        });
+
+        return boxes;
+      }
+
+      function PositionedContainer(props) {
+        const className =
+          "three-d-container" + (props.animated ? " animated" : "");
         return (
           <div
-            className="three-d-container"
+            className={className}
             style={{
-              transform: "translate3d(" + props.x + "vw, 0, " + props.z + "vw)",
+              transform: get3DTranslation(props.position),
             }}
           >
+            {props.children}
+          </div>
+        );
+      }
+
+      function Box(props) {
+        return (
+          <PositionedContainer position={props.position}>
             <div
-              className="little-box"
-              onClick={(e) => handleClick(props.x, props.z, e)}
+              className="box"
+              onClick={(e) => handleClick(props, e)}
+              style={{
+                "--box-length": props.width + SIZE_UNIT,
+                "--box-width": props.width + SIZE_UNIT,
+                "--box-height": props.height + SIZE_UNIT,
+                "--hue": props.hue,
+              }}
             >
+              {props.children}
               <div className="box-side box-top"></div>
               <div className="box-side box-back"></div>
               <div className="box-side box-front"></div>
               <div className="box-side box-right"></div>
               <div className="box-side box-left"></div>
               <div className="box-side box-bottom"></div>
+              <div className="box-label">{props.id}</div>
             </div>
-          </div>
+          </PositionedContainer>
         );
       }
 
-      function handleClick(x, z, e) {
+      function handleClick(boxProps, e) {
         e.preventDefault();
+        e.stopPropagation();
         if (
-          state.focus === undefined ||
-          state.focus.x !== x ||
-          state.focus.z !== z
+          state.focusedBoxId === undefined ||
+          state.focusedBoxId !== boxProps.id
         ) {
-          // Focus on box at coordinates x,z
-          n = 1;
+          // Focus on the clicked box
           state = {
-            perspective: {
-              x: 1 - 2.5 * n - x,
-              y: n,
-              z: -3 - 2 * n - z,
-            },
-            focus: { x, z },
+            perspective: getPerspectiveFor(
+              boxProps.absolutePosition.x,
+              boxProps.absolutePosition.y,
+              boxProps.absolutePosition.z + boxProps.width,
+              boxProps.width
+            ),
+            focusedBoxId: boxProps.id,
           };
         } else {
-          // The box at x,z was already focused, zoom out to wide view
-          n = 10;
+          // The clicked box was already focused, zoom out to wide view
           state = {
             perspective: { ...DEFAULT_PERSPECTIVE },
-            focus: undefined,
+            focusedBoxId: undefined,
           };
         }
         renderScene();
