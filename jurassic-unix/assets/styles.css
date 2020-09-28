@@ -130,67 +130,68 @@ html {
   background: linear-gradient(
     180deg,
     rgba(0, 0, 0, 1) 0%,
-    rgba(0, 0, 0, 1) 25%,
-    rgba(32, 71, 57, 1) 50%,
-    rgba(0, 0, 0, 1) 50%,
+    rgba(32, 71, 57, 1) 15%,
+    rgba(0, 0, 0, 1) 15%,
     rgba(0, 0, 0, 1) 100%
   );
+  --saturation: 40%;
 }
 
 .theme-depressing .box-back {
-  background-color: hsl(var(--hue) 40% 0%);
+  background-color: hsl(var(--hue) var(--saturation) 0%);
 }
 
 .theme-depressing .box-front {
-  background-color: hsl(var(--hue) 40% 50%);
+  background-color: hsl(var(--hue) var(--saturation) 50%);
 }
 
 .theme-depressing .box-left {
-  background-color: hsl(var(--hue) 40% 30%);
+  background-color: hsl(var(--hue) var(--saturation) 30%);
 }
 
 .theme-depressing .box-right {
-  background-color: hsl(var(--hue) 40% 20%);
+  background-color: hsl(var(--hue) var(--saturation) 20%);
 }
 
 .theme-depressing .box-top {
-  background-color: hsl(var(--hue) 40% 40%);
+  background-color: hsl(var(--hue) var(--saturation) 40%);
 }
 
 .theme-depressing .box-bottom {
-  background-color: hsl(var(--hue) 40% 10%);
+  background-color: hsl(var(--hue) var(--saturation) 10%);
 }
 
 /*theme-nice*/
 .wrapper.theme-nice {
   background: linear-gradient(
     180deg,
-    rgba(9, 54, 121, 1) 0%,
-    rgba(0, 212, 255, 1) 50%,
-    rgba(0, 255, 29, 1) 100%
+    rgba(9, 154, 221, 1) 0%,
+    rgba(0, 212, 255, 1) 20%,
+    rgba(0, 255, 29, 1) 50%
   );
+  --saturation: 90%;
 }
 
 .theme-nice .box-back {
-  background-color: hsl(var(--hue) 80% 10%);
+  background-color: hsl(var(--hue) var(--saturation) 10%);
 }
 
 .theme-nice .box-front {
-  background-color: hsl(var(--hue) 80% 40%);
+  background-color: hsl(var(--hue) var(--saturation) 40%);
 }
 
 .theme-nice .box-left {
-  background-color: hsl(var(--hue) 80% 30%);
+  background-color: hsl(var(--hue) var(--saturation) 30%);
 }
 
 .theme-nice .box-right {
-  background-color: hsl(var(--hue) 80% 20%);
+  background-color: hsl(var(--hue) var(--saturation) 20%);
 }
 
 .theme-nice .box-top {
-  background-color: hsl(var(--hue) 80% 50%);
+  background-color: hsl(var(--hue) var(--saturation) 50%);
 }
 
 .theme-nice .box-bottom {
-  background-color: hsl(var(--hue) 80% 0%);
+  background-color: hsl(var(--hue) var(--saturation) 0%);
 }
