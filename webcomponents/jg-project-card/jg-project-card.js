@@ -41,8 +41,8 @@ projectCardTemplate.innerHTML = `
 
     .jg-project-card__tech-stack{
       display: flex;
-      justify-content: space-between;
       flex-wrap: wrap;
+      align-items: center;
       width: 100%;
       height: 40px;
     }
@@ -72,7 +72,6 @@ projectCardTemplate.innerHTML = `
 class JgProjectCard extends HTMLElement {
   projectUrl = undefined;
   demoUrl = undefined;
-  techStack = [];
   
   constructor() {
     super();
@@ -105,11 +104,13 @@ class JgProjectCard extends HTMLElement {
 		  this.demoUrl = newValue;
       this.updateLinks();
     }
+    if (name == 'tech-stack') {
+      this.updateTechStack(newValue);
+    }
   }
 
   updateLinks(){
     const linksElement = this.shadowRoot.querySelector('.jg-project-card__links');
-
     linksElement.innerHTML = '';
 
     if(this.projectUrl!==undefined){
@@ -128,6 +129,17 @@ class JgProjectCard extends HTMLElement {
     button.setAttribute('icon', icon);
 
     return button;
+  }
+
+  updateTechStack(techStack){
+    const techStackElement = this.shadowRoot.querySelector('.jg-project-card__tech-stack');
+    techStackElement.innerHTML = 'Tech stack:';
+
+    techStack.split(',').map(x=>x.trim()).forEach(item => {
+      const icon = document.createElement('jg-tech-icon');
+      icon.setAttribute('type', item);
+      techStackElement.appendChild(icon);
+    });
   }
 }
 
