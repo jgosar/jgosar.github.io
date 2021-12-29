@@ -5882,7 +5882,7 @@ var $author$project$Main$update = F2(
 			if (!(!$author$project$Main$getWinner(model1.q))) {
 				return model1;
 			} else {
-				var computersMove = A3($author$project$Main$getBestMove, model1.z, model1.q, 4);
+				var computersMove = A3($author$project$Main$getBestMove, model1.z, model1.q, 3);
 				return A2($author$project$Main$playMove, model1, computersMove.a);
 			}
 		}

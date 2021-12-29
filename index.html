@@ -1,16 +1,69 @@
 <!DOCTYPE html>
 <html>
+  <head>
+    <title>Jernej Gosar's personal projects</title>
+		<script src="webcomponents/jg-project-card/jg-project-card.js"></script>
+		<script src="webcomponents/jg-link-button/jg-link-button.js"></script>
+		<script src="webcomponents/jg-tech-icon/jg-tech-icon.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/style.css"/>
+  </head>
   <body>
-    <ul>
-      <li>
-        Some examples for working with images in JavaScript:
-        <a href="./image-examples/image-examples.html">Image examples</a>
-      </li>
-      <li><a href="./ts-paint/">TS Paint image editor</a></li>
-      <li><a href="./jurassic-unix/jurassic-unix-react.htm">Jurassic UNIX: A GUI similar to the UNIX seen in the movie Jurassic Park, done with some clever CSS tricks.</a></li>
-      <li><a href="./elm-connect-4/index.html">The game Connect-4, written in Elm (Just an experiment, it does not work very fast)</a></li>
-      <li><a href="./angular-connect-4/index.html">The games Connect-4 and Checkers, written in Typescript and Angular</a></li>
-      <li><a href="./sudoku-solver">Sudoku solver</a></li>
-    </ul>
+    <div class="projects">
+      <jg-project-card
+        title="MineCity 2000"
+        img="https://raw.githubusercontent.com/jgosar/mine-city-2000/master/screens/mc2k-b.PNG"
+        project-url="https://github.com/jgosar/mine-city-2000"
+        tech-stack="csharp"
+      >
+        A program that converts SimCity 2000 cities to Minecraft worlds.
+      </jg-project-card>
+      <jg-project-card
+        title="TS Paint"
+        img="https://raw.githubusercontent.com/jgosar/ts-paint/master/screens/ts-paint.png"
+        project-url="https://github.com/jgosar/ts-paint"
+        demo-url="https://jgosar.github.io/ts-paint/"
+        tech-stack="typescript, angular"
+      >
+        An online image editor with the look and feel of Microsoft Paint for Windows 95.
+        <br/>
+        I have also prepared a few examples of working with images in Javascript: <a href="./image-examples/image-examples.html">Image examples</a>
+      </jg-project-card>
+      <jg-project-card
+        title="Jurassic Unix"
+        img="./assets/jurassic-unix.png"
+        project-url="https://github.com/jgosar/jurassic-unix"
+        demo-url="https://jgosar.github.io/jurassic-unix/jurassic-unix-react.htm"
+        tech-stack="typescript, react"
+      >
+        A 3D GUI similar to the UNIX seen in the movie <a href="https://www.youtube.com/watch?v=dxIPcbmo1_U&t=43s">Jurassic Park</a>, done with built-in CSS transformations.
+      </jg-project-card>
+      <jg-project-card
+        title="Connect-4 (ELM)"
+        img="./assets/elm-connect-4.png"
+        project-url="https://github.com/jgosar/elm-connect-4"
+        demo-url="https://jgosar.github.io/elm-connect-4/index.html"
+        tech-stack="elm"
+      >
+        In order to learn more about functional programming and specifically the Elm language, I decided to implement the game Connect-4 in it.
+      </jg-project-card>
+      <jg-project-card
+        title="Connect-4 & Checkers"
+        img="./assets/angular-connect-4.png"
+        project-url="https://github.com/jgosar/angular-connect-4"
+        demo-url="https://jgosar.github.io/angular-connect-4"
+        tech-stack="typescript, angular"
+      >
+        To see if I could make the implementation more optimal, I then implemented Connect-4 in Angular as well. And then I generalized the <a href="https://en.wikipedia.org/wiki/Minimax">Minimax</a> algorithm from Connect-4 and reused it to implement Checkers in the same project.
+      </jg-project-card>
+      <jg-project-card
+        title="Sudoku Solver"
+        img="./assets/sudoku-solver.png"
+        project-url="https://github.com/jgosar/sudoku-solver"
+        demo-url="https://jgosar.github.io/sudoku-solver/"
+        tech-stack="typescript, angular"
+      >
+        While solving Sudokus one day I decided that it would more fun if I made the computer solve them for me.
+      </jg-project-card>
+    </div>
   </body>
 </html>
