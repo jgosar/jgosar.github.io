@@ -9,8 +9,7 @@ techIconTemplate.innerHTML = `
       height: 24px;
     }
   </style>
-  <a class="jg-tech-icon" href="https://angular.io/" title="Angular" target="_blank">
-    <img src="./assets/icons/angular.svg"></img>
+  <a class="jg-tech-icon" target="_blank">
   </a>
 `;
 
@@ -40,6 +39,16 @@ class JgTechIcon extends HTMLElement {
       title: 'React',
       icon: './assets/icons/react.svg',
       homepage: 'https://reactjs.org/',
+    },
+    javascript: {
+      title: 'Javascript',
+      icon: './assets/icons/javascript.svg',
+      homepage: 'https://www.javascript.com/',
+    },
+    tizen: {
+      title: 'Tizen',
+      icon: './assets/icons/tizen.svg',
+      homepage: 'https://www.tizen.org/',
     },
   };
 
