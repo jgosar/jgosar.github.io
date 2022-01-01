@@ -69,12 +69,13 @@ class JgTechIcon extends HTMLElement {
       const iconConfig = this.CONFIG[newValue];
       const linkElement = this.shadowRoot.querySelector('.jg-tech-icon');
       linkElement.innerHTML = '';
-      linkElement.setAttribute('href', iconConfig.homepage);
-      linkElement.setAttribute('title', iconConfig.title);
+
+      setAttributes(
+        linkElement,
+        {href: iconConfig.homepage, title: iconConfig.title}
+      );
       
-      const iconElement = document.createElement('img');
-      iconElement.setAttribute('src', iconConfig.icon);
-      linkElement.appendChild(iconElement);
+      const iconElement = createChild(linkElement, 'img', {src: iconConfig.icon});
     }
   }
 }

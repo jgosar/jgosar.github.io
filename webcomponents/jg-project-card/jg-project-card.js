@@ -16,7 +16,6 @@ projectCardTemplate.innerHTML = `
       box-shadow: 5px 10px 5px grey;
       transition: 500ms;
     }
-
     
     .jg-project-card:hover{
       box-shadow: 7px 12px 8px grey;
@@ -114,31 +113,24 @@ class JgProjectCard extends HTMLElement {
     linksElement.innerHTML = '';
 
     if(this.projectUrl!==undefined){
-      linksElement.appendChild(this.createLinkButton("View code", this.projectUrl, 'github'));
+      this.addLinkButton(linksElement, 'View code', this.projectUrl, 'github');
     }
 
     if(this.demoUrl!==undefined){
-      linksElement.appendChild(this.createLinkButton("Try it", this.demoUrl, 'launch'));
+      this.addLinkButton(linksElement, 'Try it', this.demoUrl, 'launch');
     }
   }
 
-  createLinkButton(text, href, icon){
-    const button = document.createElement('jg-link-button');
-    button.setAttribute('text', text);
-    button.setAttribute('href', href);
-    button.setAttribute('icon', icon);
-
-    return button;
+  addLinkButton(linksContainer, text, href, icon){
+    createChild(linksContainer, 'jg-link-button', {text, href, icon});
   }
 
   updateTechStack(techStack){
     const techStackElement = this.shadowRoot.querySelector('.jg-project-card__tech-stack');
     techStackElement.innerHTML = 'Tech stack:';
 
-    techStack.split(',').map(x=>x.trim()).forEach(item => {
-      const icon = document.createElement('jg-tech-icon');
-      icon.setAttribute('type', item);
-      techStackElement.appendChild(icon);
+    techStack.split(',').map(x=>x.trim()).forEach(techType => {
+      createChild(techStackElement, 'jg-tech-icon', {type: techType});
     });
   }
 }
