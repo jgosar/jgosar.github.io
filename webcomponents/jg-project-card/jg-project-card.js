@@ -6,7 +6,6 @@ projectCardTemplate.innerHTML = `
       height: 480px;
       border: 2px solid grey;
       border-radius: 10px;
-      font-family: "Segoe UI";
       font-size: 14px;
       display: flex;
       flex-direction: column;
