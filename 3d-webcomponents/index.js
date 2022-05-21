@@ -1,28 +1,43 @@
-let boxes = [];
-
-let floor = { x: -5, z: -5, width: 10, length: 10 };
-
-let camera = { x: 0, y: -6, z: 8.5, angleX: -35, angleY: 0 };
-let hue = 225;
-
 const POSITION_INTERVAL = 0.5;
 const ANGLE_INTERVAL = 5;
 const KEYDOWN_DEBOUNCE_MS = 200;
-let lastHandledTimeByKey = {};
+
+const appState = {
+  boxes: [],
+  floor: { x: -5, z: -5, width: 10, length: 10 },
+  camera: { x: 0, y: -6, z: 8.5, angleX: -35, angleY: 0 },
+  hue: 225,
+};
+let pressedKeys = [];
 
 window.onload = function () {
   loadBoxes();
-  updateCameraParams(camera);
+  updateCameraParams(appState.camera);
   setupKeyListeners();
   setupColorPickerListener();
   renderBoxes();
   renderFloor();
 };
 
+////////////////////////////////Local storage////////////////////////////////
+function saveBoxes() {
+  localStorage.setItem(
+    "3d-webcomponents_boxes",
+    JSON.stringify(appState.boxes)
+  );
+}
+
+function loadBoxes() {
+  appState.boxes =
+    JSON.parse(localStorage.getItem("3d-webcomponents_boxes")) || [];
+}
+////////////////////////////////Local storage////////////////////////////////
+
+////////////////////////////////Create DOM from JSON////////////////////////////////
 function renderBoxes() {
   const boxesElement = document.getElementById("boxes");
   boxesElement.textContent = "";
-  boxes.forEach((box) => {
+  appState.boxes.forEach((box) => {
     const boxElement = document.createElement("wct-box");
     Object.entries(box).forEach(([attrName, attrValue]) =>
       boxElement.setAttribute(attrName, attrValue)
@@ -34,31 +49,11 @@ function renderBoxes() {
   });
 }
 
-function saveBoxes() {
-  localStorage.setItem("3d-webcomponents_boxes", JSON.stringify(boxes));
-}
-
-function loadBoxes() {
-  boxes = JSON.parse(localStorage.getItem("3d-webcomponents_boxes")) || {};
-}
-
-function boxClick(box, event) {
-  const action = event.detail.mouseButton === "left" ? "add" : "remove";
-  if (action === "add") {
-    const newBox = getNewBoxProps(box, event.detail.side);
-    boxes.push(newBox);
-  } else {
-    boxes = boxes.filter((arrayBox) => arrayBox !== box);
-  }
-  saveBoxes();
-  renderBoxes();
-}
-
 function renderFloor() {
   const sceneElement = document.getElementById("scene");
 
   const floorElement = document.createElement("wct-floor");
-  Object.entries(floor).forEach(([attrName, attrValue]) =>
+  Object.entries(appState.floor).forEach(([attrName, attrValue]) =>
     floorElement.setAttribute(attrName, attrValue)
   );
   floorElement.addEventListener("floor-tile-click", (event) =>
@@ -68,118 +63,127 @@ function renderFloor() {
   sceneElement.appendChild(floorElement);
 }
 
-function floorTileClick(event) {
-  const newBox = {
-    x: event.detail.x + floor.x,
-    y: -1,
-    z: event.detail.z + floor.z,
-    hue,
-  };
-  boxes.push(newBox);
+function updateCameraParams(changes) {
+  const sceneElement = document.getElementById("scene");
+  Object.entries(changes).forEach(([attrName, attrValue]) => {
+    if (["x", "y", "z", "angleX", "angleY"].includes(attrName)) {
+      appState.camera[attrName] = attrValue;
+      sceneElement.setAttribute(`camera-${attrName}`, attrValue);
+    }
+  });
+}
+////////////////////////////////Create DOM from JSON////////////////////////////////
+
+////////////////////////////////Handle click events////////////////////////////////
+function boxClick(box, event) {
+  const action = event.detail.mouseButton === "left" ? "add" : "remove";
+  if (action === "add") {
+    const newBox = getNewBoxProps(box, event.detail.side);
+    appState.boxes.push(newBox);
+  } else {
+    appState.boxes = appState.boxes.filter((arrayBox) => arrayBox !== box);
+  }
   saveBoxes();
   renderBoxes();
 }
 
 function getNewBoxProps(parentBox, side) {
-  return {
-    ...parentBox,
-    x:
-      side === "right"
-        ? parentBox.x + 1
-        : side === "left"
-        ? parentBox.x - 1
-        : parentBox.x,
-    y:
-      side === "bottom"
-        ? parentBox.y + 1
-        : side === "top"
-        ? parentBox.y - 1
-        : parentBox.y,
-    z:
-      side === "front"
-        ? parentBox.z + 1
-        : side === "back"
-        ? parentBox.z - 1
-        : parentBox.z,
-    hue,
+  const positionDiffBySide = {
+    right: { x: 1 },
+    left: { x: -1 },
+    bottom: { y: 1 },
+    top: { y: -1 },
+    front: { z: 1 },
+    back: { z: -1 },
   };
+
+  const positionDiff = positionDiffBySide[side];
+  return { ...addCoordinates(parentBox, positionDiff), hue: appState.hue };
 }
 
-function updateCameraParams(changes) {
-  const sceneElement = document.getElementById("scene");
-  Object.entries(changes).forEach(([attrName, attrValue]) => {
-    if (["x", "y", "z", "angleX", "angleY"].includes(attrName)) {
-      camera[attrName] = attrValue;
-      sceneElement.setAttribute(`camera-${attrName}`, attrValue);
-    }
-  });
-}
-
-function setupKeyListeners() {
-  document.addEventListener("keydown", (e) => {
-    thisKeyPressTime = new Date().getTime();
-
-    if (
-      lastHandledTimeByKey[e.code] !== undefined &&
-      thisKeyPressTime - lastHandledTimeByKey[e.code] < KEYDOWN_DEBOUNCE_MS
-    ) {
-      return;
-    }
-
-    lastHandledTimeByKey[e.code] = thisKeyPressTime;
-    switch (e.code) {
-      case "KeyW":
-        moveOneStepInRelativeDirection(0);
-        break;
-      case "KeyS":
-        moveOneStepInRelativeDirection(180);
-        break;
-      case "KeyA":
-        moveOneStepInRelativeDirection(270);
-        break;
-      case "KeyD":
-        moveOneStepInRelativeDirection(90);
-        break;
-      case "KeyQ":
-        updateCameraParams({ y: camera.y - POSITION_INTERVAL });
-        break;
-      case "KeyY":
-      case "KeyZ":
-        updateCameraParams({ y: camera.y + POSITION_INTERVAL });
-        break;
-      case "ArrowLeft":
-        updateCameraParams({ angleY: camera.angleY - ANGLE_INTERVAL });
-        break;
-      case "ArrowRight":
-        updateCameraParams({ angleY: camera.angleY + ANGLE_INTERVAL });
-        break;
-      case "ArrowUp":
-        updateCameraParams({
-          angleX: constrainValue(-90, camera.angleX + ANGLE_INTERVAL, 90),
-        });
-        break;
-      case "ArrowDown":
-        updateCameraParams({
-          angleX: constrainValue(-90, camera.angleX - ANGLE_INTERVAL, 90),
-        });
-        break;
-    }
-  });
+function floorTileClick(event) {
+  const newBox = {
+    x: event.detail.x + appState.floor.x,
+    y: -1,
+    z: event.detail.z + appState.floor.z,
+    hue: appState.hue,
+  };
+  appState.boxes.push(newBox);
+  saveBoxes();
+  renderBoxes();
 }
 
 function setupColorPickerListener() {
   const colorPickerElenent = document.getElementById("color-picker");
   colorPickerElenent.addEventListener("color-picked", (event) => {
     console.log("color picked: " + event.detail.hue);
-    hue = event.detail.hue;
+    appState.hue = event.detail.hue;
   });
+}
+////////////////////////////////Handle click events////////////////////////////////
+
+////////////////////////////////Keyboard events////////////////////////////////
+function setupKeyListeners() {
+  setInterval(handlePressedKeys, KEYDOWN_DEBOUNCE_MS);
+
+  document.addEventListener("keydown", (e) => {
+    if (!pressedKeys.includes(e.code)) {
+      pressedKeys = [...pressedKeys, e.code];
+    }
+  });
+  document.addEventListener("keyup", (e) => {
+    if (pressedKeys.includes(e.code)) {
+      pressedKeys = pressedKeys.filter((keyCode) => keyCode !== e.code);
+    }
+  });
+}
+
+function handlePressedKeys() {
+  const keyHandlers = {
+    KeyW: () => moveOneStepInRelativeDirection(0),
+    KeyS: () => moveOneStepInRelativeDirection(180),
+    KeyA: () => moveOneStepInRelativeDirection(270),
+    KeyD: () => moveOneStepInRelativeDirection(90),
+    KeyQ: () =>
+      updateCameraParams({ y: appState.camera.y - POSITION_INTERVAL }),
+    KeyY: () =>
+      updateCameraParams({ y: appState.camera.y + POSITION_INTERVAL }),
+    KeyZ: () =>
+      updateCameraParams({ y: appState.camera.y + POSITION_INTERVAL }),
+    ArrowLeft: () =>
+      updateCameraParams({ angleY: appState.camera.angleY - ANGLE_INTERVAL }),
+    ArrowRight: () =>
+      updateCameraParams({ angleY: appState.camera.angleY + ANGLE_INTERVAL }),
+    ArrowUp: () =>
+      updateCameraParams({
+        angleX: constrainValue(
+          -90,
+          appState.camera.angleX + ANGLE_INTERVAL,
+          90
+        ),
+      }),
+    ArrowDown: () =>
+      updateCameraParams({
+        angleX: constrainValue(
+          -90,
+          appState.camera.angleX - ANGLE_INTERVAL,
+          90
+        ),
+      }),
+  };
+
+  pressedKeys.forEach((key) => keyHandlers[key]?.());
 }
 
 function moveOneStepInRelativeDirection(relativeAngle) {
   updateCameraParams(
     addCoordinates(
-      camera,
-      getPositionChange(camera.angleY + relativeAngle, POSITION_INTERVAL)
+      appState.camera,
+      getPositionChange(
+        appState.camera.angleY + relativeAngle,
+        POSITION_INTERVAL
+      )
     )
   );
 }
+////////////////////////////////Keyboard events////////////////////////////////
