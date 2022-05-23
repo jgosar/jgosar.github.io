@@ -50,6 +50,11 @@ class JgTechIcon extends HTMLElement {
       icon: './assets/icons/tizen.svg',
       homepage: 'https://www.tizen.org/',
     },
+    webcomponents: {
+      title: 'WebComponents',
+      icon: './assets/icons/webcomponents.svg',
+      homepage: 'https://www.webcomponents.org/',
+    },
   };
 
   constructor() {
