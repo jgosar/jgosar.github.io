@@ -2,7 +2,7 @@ const data = `ID	Prevoznik	Serija	Država	Proizvajalec	Posebnosti	Slike
 1	FS	E656	it	Lima		20230415_093257,20230415_093331
 2	SŽ	813/814	si	Rivarossi,Ročno		20230415_093616,20230415_093642
 3	SŽ	311/315	si	Ročno		20230415_093836,20230415_094021,20230415_094041
-4	SŽ	713/715	si	Roco,Ročno		20230415_094153,20230415_094207
+4	SŽ	715	si	Roco,Ročno		20230415_094153,20230415_094207
 5	DB	55	de	Piko	Digital,Sound	20230415_094436,20230415_094448
 6	FS	214	it	Roco		20230415_095827,20230415_095836
 7	DB	182	de	Piko	Poškodovana pantografa	20230415_100132,20230415_100146
@@ -87,17 +87,17 @@ const data = `ID	Prevoznik	Serija	Država	Proizvajalec	Posebnosti	Slike
 86	DB	80	de	Roco		20230507_105644,20230507_105655
 87	DB	55	de	?		20230507_105802,20230507_105812
 88	Santa Fe	F9	us	Mehano		20230507_110051,20230507_110243
-89			us	Mehano		20230507_120115
-90			us	Mehano		20230507_120115
-91			us	Mehano		20230507_120115
-92			us	Mehano		20230507_120115
-93			us	Mehano		20230507_120115
-94			us	Mehano		20230507_120115
-95			us	Mehano		20230507_120115
-96			us	Mehano		20230507_120115
-97			us	Mehano		20230507_120115
-98			us	Mehano		20230507_120115
-99			us	Mehano		20230507_120115
+89	CP Rail	6527	ca	Mehano		m1
+90		1540	us	Mehano		m2
+91	Southern	2060	us	Mehano		m3
+92	Amtrak	5858	us	Mehano		m4
+93			us	Mehano		m5
+94			us	Mehano		m6
+95			us	Mehano		m7
+96			us	Mehano		m8
+97			us	Mehano		m9
+98			us	Mehano		m10
+99			us	Mehano		m11
 100	ÖBB	156	at	Kleinbahn	Tender JŽ 25	20230507_120525,20230507_120536`;
 
 const rows = data.split("\n");
@@ -105,11 +105,10 @@ const rows = data.split("\n");
 const cells = rows.map((row) => row.split("\t"));
 
 const compareStrings = (s1, s2) => (s1 < s2 ? -1 : s1 > s2 ? 1 : 0);
+const getSortString = (loco) =>
+  `${loco.country}-${loco.railroad}-${loco.class.padStart(10, "0")}-${loco.id}`;
 const compareLocomotives = (l1, l2) =>
-  compareStrings(
-    `${l1.country}-${l1.railroad}-${l1.class}-${l1.id}`,
-    `${l2.country}-${l2.railroad}-${l2.class}-${l2.id}`
-  );
+  compareStrings(getSortString(l1), getSortString(l2));
 
 const parsedData = cells
   .slice(1)
