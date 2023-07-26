@@ -104,20 +104,26 @@ const rows = data.split("\n");
 
 const cells = rows.map((row) => row.split("\t"));
 
-const parsedData = cells.slice(1).map((row) => ({
-  id: row[0],
-  railroad: row[1],
-  class: row[2],
-  country: row[3],
-  modelBrand: row[4],
-  details: row[5],
-  images: row[6],
-}));
+const compareStrings = (s1, s2) => (s1 < s2 ? -1 : s1 > s2 ? 1 : 0);
+const compareLocomotives = (l1, l2) =>
+  compareStrings(
+    `${l1.country}-${l1.railroad}-${l1.class}-${l1.id}`,
+    `${l2.country}-${l2.railroad}-${l2.class}-${l2.id}`
+  );
 
-/*title="FS E656"
-		country="it"
-        img-urls="./assets/20230415_093257.jpg,./assets/20230415_093331.jpg"
-        info="" */
+const parsedData = cells
+  .slice(1)
+  .map((row) => ({
+    id: row[0],
+    railroad: row[1],
+    class: row[2],
+    country: row[3],
+    modelBrand: row[4],
+    details: row[5],
+    images: row[6],
+  }))
+  .sort(compareLocomotives);
+
 window.onload = function () {
   const parentElement = document.getElementById("locomotives");
 

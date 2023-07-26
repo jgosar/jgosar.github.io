@@ -88,7 +88,7 @@ locomotiveTemplate.innerHTML = `
       height: min(90vh, 67.5vw);
       top: calc((100% - min(90vh, 67.5vw)) / 2);
       left:calc((100% - min(120vh, 90vw)) / 2);
-      z-index: 1;
+      z-index: 2;
     }
 
     .lm-locomotive__info{
