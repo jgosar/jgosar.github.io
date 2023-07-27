@@ -84,11 +84,12 @@ locomotiveTemplate.innerHTML = `
 
     .lm-locomotive__img:focus{
       position: fixed;
-      width: min(120vh, 90vw);
-      height: min(90vh, 67.5vw);
-      top: calc((100% - min(90vh, 67.5vw)) / 2);
-      left:calc((100% - min(120vh, 90vw)) / 2);
+      width: min(130vh, 97.5vw);
+      height: min(97.5vh, 73vw);
+      top: calc((100% - min(97.5vh, 73vw)) / 2);
+      left:calc((100% - min(130vh, 97.5vw)) / 2);
       z-index: 2;
+      box-shadow: 0 0 0 100vmax rgba(100,100,100,0.5);
     }
 
     .lm-locomotive__info{
