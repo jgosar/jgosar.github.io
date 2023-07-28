@@ -1,0 +1,158 @@
+<html>
+<head>
+	<title>Dynamic SVG POC</title>
+	<style>
+		@property --sky-color {
+		  syntax: '<color>';
+		  initial-value: #000000;
+		  inherits: true;
+		}
+		@property --ground-color {
+		  syntax: '<color>';
+		  initial-value: #000000;
+		  inherits: true;
+		}
+		@property --house-color {
+		  syntax: '<color>';
+		  initial-value: #000000;
+		  inherits: true;
+		}
+		@property --roof-color {
+		  syntax: '<color>';
+		  initial-value: #000000;
+		  inherits: true;
+		}
+		@property --door-color {
+		  syntax: '<color>';
+		  initial-value: #000000;
+		  inherits: true;
+		}
+		@property --window-color {
+		  syntax: '<color>';
+		  initial-value: #000000;
+		  inherits: true;
+		}
+		@property --sun-moon-color {
+		  syntax: '<color>';
+		  initial-value: #000000;
+		  inherits: true;
+		}
+		@property --moon-cover-color {
+		  syntax: '<color>';
+		  initial-value: #000000;
+		  inherits: true;
+		}
+		@property --sun-moon-y {
+		  syntax: '<length>';
+		  initial-value:0px;
+		  inherits: true;
+		}
+		
+		@keyframes toDay {
+			0% {
+				--sky-color: #003366;
+				--ground-color: #003300;
+				--house-color: #555555;
+				--roof-color: #990000;
+				--door-color: #552200;
+				--window-color: #eeee00;
+				--sun-moon-color: #ffff88;
+				--moon-cover-color: var(--sky-color);
+			}
+			50%{
+				--sun-moon-y: 80px;
+				--sun-moon-color: #ffff88;
+				--moon-cover-color: var(--sky-color);
+				--window-color: #eeee00;
+			}
+			51%{
+				--sun-moon-color: #ff8800;
+				--moon-cover-color: transparent;
+				--window-color: var(--sky-color);
+			}
+		}
+		
+		@keyframes toNight {
+			0% {
+				--sky-color: #00ffff;
+				--ground-color: #00ff00;
+				--house-color: #cccccc;
+				--roof-color: #ff0000;
+				--door-color: #aa4400;
+				--window-color: var(--sky-color);
+				--sun-moon-color: #ffff00;
+				--moon-cover-color: transparent;
+			}
+			50%{
+				--sun-moon-y: 80px;
+				--sun-moon-color: #ff8800;
+				--moon-cover-color: transparent;
+				--window-color: var(--sky-color);
+			}
+			51%{
+				--sun-moon-color: #ffff88;
+				--moon-cover-color: var(--sky-color);
+				--window-color: #eeee00;
+			}
+			100%{
+				--moon-cover-color: var(--sky-color);
+			}
+		}
+		
+		.house{
+			--sky-color: #003366;
+			--ground-color: #003300;
+			--house-color: #555555;
+			--roof-color: #990000;
+			--door-color: #552200;
+			--window-color: #eeee00;
+			--sun-moon-color: #ffff88;
+			--moon-cover-color: var(--sky-color);
+			--sun-moon-y: 20px;
+			animation: toNight 1s;
+		}
+		
+		.house:focus{
+			--sky-color: #00ffff;
+			--ground-color: #00ff00;
+			--house-color: #cccccc;
+			--roof-color: #ff0000;
+			--door-color: #aa4400;
+			--window-color: var(--sky-color);
+			--sun-moon-color: #ffff00;
+			--moon-cover-color: transparent;
+			--sun-moon-y: 20px;
+			animation: toDay 1s;
+		}
+		
+		.toggler{
+		  width: 500px;
+		  height: 500px;
+		  z-index: 1;
+		  position: absolute;
+		  cursor: pointer;
+		}
+		
+		.toggler:focus{
+		  z-index: 0;
+		}
+	</style>
+</head>
+<body>
+	<div class="toggler" tabindex="0"></div>
+	<div class="house toggler" tabindex="1">
+		<svg viewBox="0 0 100 100">
+			<path fill="var(--sky-color)" d="M0,0H100V60H0z"/>
+			<circle style="fill: var(--sun-moon-color); cy:var(--sun-moon-y);" cx=80 r="10" />
+			<circle style="fill: var(--moon-cover-color); cy:var(--sun-moon-y);" cx=85 r="10" />
+			<path fill="var(--ground-color)" d="M0,60H100V100H0z"/>
+			<path fill="var(--house-color)" d="M20,40h30v30h-30z"/>
+			<path fill="var(--window-color)" d="M23,43h10v10h-10z"/>
+			<path fill="var(--window-color)" d="M37,43h10v10h-10z"/>
+			<path fill="var(--door-color)" d="M30,55h10v15h-10z"/>
+			<path fill="var(--house-color)" d="M40,25h5v10h-5z"/>
+			<path fill="var(--roof-color)" d="M20,40l15,-15l15,15z"/>
+		</svg>
+	</div>
+</body>
+</html>
