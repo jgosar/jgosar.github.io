@@ -21,6 +21,7 @@ const mapCsvRowToLocomotive = (row) => ({
   modelBrand: row[4],
   details: row[5],
   images: row[6],
+  price: row[7],
 });
 
 window.onload = function () {
@@ -42,6 +43,7 @@ window.onload = function () {
           title: `${locomotive.railroad} ${locomotive.class}`,
           country: locomotive.country,
           images: locomotive.images,
+          price: `Cena: ${locomotive.price}€`,
           info: `Izdelava: ${locomotive.modelBrand}\n\n${locomotive.details}`,
         });
         parentElement.appendChild(locomotiveElement);
