@@ -97,6 +97,12 @@ locomotiveTemplate.innerHTML = `
       flex-grow: 1;
       padding-top: 10px;
     }
+
+    .lm-locomotive__price{
+      padding: 10px 0;
+      font-weight: bold;
+      font-size: 20px;
+    }
   </style>
 
   <div class="lm-locomotive">
@@ -114,6 +120,8 @@ locomotiveTemplate.innerHTML = `
   </div>
   </div>
   <div class="lm-locomotive__info">
+  </div>
+  <div class="lm-locomotive__price">
   </div>
   </div>
 `;
@@ -150,7 +158,7 @@ class LmLocomotive extends HTMLElement {
   }
 
   static get observedAttributes() {
-    return ["title", "country", "images", "info"];
+    return ["title", "country", "images", "info", "price"];
   }
 
   attributeChangedCallback(name, oldValue, newValue) {
@@ -189,6 +197,10 @@ class LmLocomotive extends HTMLElement {
     }
     if (name == "info") {
       this.shadowRoot.querySelector(".lm-locomotive__info").innerText =
+        newValue;
+    }
+    if (name == "price") {
+      this.shadowRoot.querySelector(".lm-locomotive__price").innerText =
         newValue;
     }
   }
