@@ -14,31 +14,52 @@ locomotiveTemplate.innerHTML = `
       margin: 10px;
       box-shadow: 5px 10px 5px grey;
       transition: 500ms;
+      position: relative;
     }
     
     .lm-locomotive:hover{
       box-shadow: 7px 12px 8px grey;
     }
-	
-	.lm-locomotive__header{
-		display: flex;
-		flex-direction: row;
-		align-items: center;
-		justify-content: space-between;
-		width: 100%;
-		margin: 0 0 10px 0;
-	}
-
-    .lm-locomotive__title{
-		margin: 0;
+    
+    .lm-locomotive--sold img{
+      filter: grayscale(1);
+    }
+    
+    .lm-locomotive--sold::before{
+      content: 'Prodano';
+      position: absolute;
+      top: calc(50% - 25px);
+      color: red;
+      transform: rotate(-30deg);
+      font-size: 50px;
+      border: 5px solid red;
+      border-radius: 10px;
+      font-weight: bold;
+      z-index: 1;
     }
 	
-	
-	.lm-locomotive__flag{
-		width: 30px;
-		aspect-ratio: 4 / 3;
-	}
+    .lm-locomotive__header{
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      margin: 0 0 10px 0;
+    }
 
+    .lm-locomotive__id{
+      color: #aaaaaa;
+    }
+
+    .lm-locomotive__title{
+      margin: 0;
+    }
+
+    .lm-locomotive__flag{
+      width: 30px;
+      aspect-ratio: 4 / 3;
+    }
+    
     .lm-locomotive__images{
       width: 100%;
       height: 40%;
@@ -84,10 +105,10 @@ locomotiveTemplate.innerHTML = `
 
     .lm-locomotive__img:focus{
       position: fixed;
-      width: min(130vh, 97.5vw);
-      height: min(97.5vh, 73vw);
-      top: calc((100% - min(97.5vh, 73vw)) / 2);
-      left:calc((100% - min(130vh, 97.5vw)) / 2);
+      width: min(120vh, 90vw);
+      height: min(90vh, 67.5vw);
+      top: calc((100% - min(90vh, 67.5vw)) / 2);
+      left:calc((100% - min(120vh, 90vw)) / 2);
       z-index: 2;
       box-shadow: 0 0 0 100vmax rgba(100,100,100,0.5);
     }
@@ -107,6 +128,8 @@ locomotiveTemplate.innerHTML = `
 
   <div class="lm-locomotive">
 	<div class="lm-locomotive__header">
+		<div class="lm-locomotive__id">
+		</div>
 		<h2 class="lm-locomotive__title">
 		</h2>
   <img class="lm-locomotive__flag"></img>
@@ -158,7 +181,7 @@ class LmLocomotive extends HTMLElement {
   }
 
   static get observedAttributes() {
-    return ["title", "country", "images", "info", "price"];
+    return ["id", "title", "country", "images", "info", "price", "sold"];
   }
 
   attributeChangedCallback(name, oldValue, newValue) {
@@ -195,6 +218,9 @@ class LmLocomotive extends HTMLElement {
         this.imagesDiv.appendChild(imgElement);
       });
     }
+    if (name == "id") {
+      this.shadowRoot.querySelector(".lm-locomotive__id").innerText = newValue;
+    }
     if (name == "info") {
       this.shadowRoot.querySelector(".lm-locomotive__info").innerText =
         newValue;
@@ -202,6 +228,17 @@ class LmLocomotive extends HTMLElement {
     if (name == "price") {
       this.shadowRoot.querySelector(".lm-locomotive__price").innerText =
         newValue;
+    }
+    if (name == "sold") {
+      if (newValue === "x") {
+        this.shadowRoot
+          .querySelector(".lm-locomotive")
+          .classList.add("lm-locomotive--sold");
+      } else {
+        this.shadowRoot
+          .querySelector(".lm-locomotive")
+          .classList.remove("lm-locomotive--sold");
+      }
     }
   }
 

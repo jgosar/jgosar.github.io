@@ -22,6 +22,7 @@ const mapCsvRowToLocomotive = (row) => ({
   details: row[5],
   images: row[6],
   price: row[7],
+  sold: row[8],
 });
 
 window.onload = function () {
@@ -40,11 +41,13 @@ window.onload = function () {
       parsedData.forEach((locomotive) => {
         const locomotiveElement = document.createElement("lm-locomotive");
         setAttributes(locomotiveElement, {
+          id: locomotive.id,
           title: `${locomotive.railroad} ${locomotive.class}`,
           country: locomotive.country,
           images: locomotive.images,
           price: `Cena: ${locomotive.price}€`,
           info: `Izdelava: ${locomotive.modelBrand}\n\n${locomotive.details}`,
+          sold: locomotive.sold,
         });
         parentElement.appendChild(locomotiveElement);
       });
