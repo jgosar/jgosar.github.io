@@ -6,11 +6,30 @@ body {
   align-items: center;
 }
 
-.sortSelector {
+h1{
+  margin: 0;
+}
+
+.header{
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin: 10px;
+  justify-content: center;
+}
+
+.bubble{
   border: 1px solid black;
   background-color: #eeeeee;
   border-radius: 4px;
   padding: 4px;
+}
+
+.info{
+
+}
+
+.sortSelector {
 }
 
 .locomotives {
