@@ -124,6 +124,26 @@ locomotiveTemplate.innerHTML = `
       font-weight: bold;
       font-size: 20px;
     }
+    
+    @media print {
+      .lm-locomotive{
+        height: auto;
+        box-shadow: none;
+        break-inside: avoid;
+      }
+      
+      .lm-locomotive--sold{
+        display: none;
+      }
+
+      .lm-locomotive__flag{
+        display: none;
+      }
+
+      .lm-locomotive__images{
+        display: none;
+      }
+    }
   </style>
 
   <div class="lm-locomotive">

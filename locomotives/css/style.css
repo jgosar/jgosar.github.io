@@ -41,3 +41,9 @@ ul{
   flex-wrap: wrap;
   justify-content: center;
 }
+
+@media print {
+  .header{
+    display: none;
+  }
+}
