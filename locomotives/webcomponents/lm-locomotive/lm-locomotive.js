@@ -120,7 +120,6 @@ locomotiveTemplate.innerHTML = `
     }
 
     .lm-locomotive__price{
-      display: none;
       padding: 10px 0;
       font-weight: bold;
       font-size: 20px;
