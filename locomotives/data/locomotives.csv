@@ -77,8 +77,8 @@ ID;Prevoznik;Serija;Država;Proizvajalec;Posebnosti;Slike;Cena;Prodano
 76;SNCF;67007;fr;Jouef;;20230507_091139,20230507_091151;20;
 77;JŽ;661;yu;Mehano,Roèno;;20230507_091313,20230507_091324;20;
 78;SNCF;539;fr;Mehano;;20230507_091417,20230507_091426;20;
-79;SŽ;?;si;Mehano,Roèno;;20230507_091528,20230507_091538;10;
-80;SPL;522;us;Mehano;;20230507_101721,20230507_101736;10;
+79;SŽ;?;si;Mehano,Roèno;;20230507_091528,20230507_091538;10;x
+80;SPL;522;us;Mehano;;20230507_101721,20230507_101736;10;x
 81;SPL;2002K;us;Mehano;;20230507_101759,20230507_101805;10;
 82;ÖBB;729;at;Kleinbahn;;20230507_101815,20230507_101823;40;
 83;SŽ;661;si;Mehano,Roèno;;20230507_101835,20230507_101844;30;
@@ -86,16 +86,16 @@ ID;Prevoznik;Serija;Država;Proizvajalec;Posebnosti;Slike;Cena;Prodano
 85;JŽ;25;yu;Kleinbahn,Roèno;;20230507_105431,20230507_105444;100;
 86;DB;80;de;Roco;;20230507_105644,20230507_105655;70;
 87;DB;55;de;?;;20230507_105802,20230507_105812;60;
-88;Santa Fe;F9;us;Mehano;;20230507_110051,20230507_110243;10;
+88;Santa Fe;F9;us;Mehano;;20230507_110051,20230507_110243;10;x
 89;CP Rail;6527;ca;Mehano;;m1;10;
 90;;1540;us;Mehano;;m2;10;
 91;Southern;2060;us;Mehano;;m3;10;
 92;Amtrak;5858;us;Mehano;;m4;20;
-93;;;us;Mehano;;m5;10;
-94;;;us;Mehano;;m6;10;
-95;;;us;Mehano;;m7;10;
-96;;;us;Mehano;;m8;10;
-97;;;us;Mehano;;m9;10;
+93;;;us;Mehano;;m5;20;
+94;;;us;Mehano;;m6;20;
+95;;;us;Mehano;;m7;10;x
+96;;;us;Mehano;;m8;10;x
+97;;;us;Mehano;;m9;10;x
 98;;;us;Mehano;;m10;10;
 99;;;us;Mehano;;m11;10;
 100;ÖBB;156;at;Kleinbahn;Tender JŽ 25;20230507_120525,20230507_120536;50;
