@@ -73,7 +73,7 @@ ID;Prevoznik;Serija;Država;Proizvajalec;Posebnosti;Slike;Cena;Prodano
 72;SNCB;202;be;Fleischmann;;20230502_125524,20230502_125535;40;
 73;/;Ljubljana tram;yu;Roèno;;20230502_131350,20230502_131404;120;x
 74;/;Ljubljana tram;yu;Roèno;;20230502_131630,20230502_131635;100;x
-75;/;Zagreb tram;yu;Roèno;;20230502_131732,20230502_131744;100;
+75;/;Zagreb tram;yu;Roèno;;20230502_131732,20230502_131744;100;x
 76;SNCF;67007;fr;Jouef;;20230507_091139,20230507_091151;20;
 77;JŽ;661;yu;Mehano,Roèno;;20230507_091313,20230507_091324;20;x
 78;SNCF;539;fr;Mehano;;20230507_091417,20230507_091426;20;
@@ -87,7 +87,7 @@ ID;Prevoznik;Serija;Država;Proizvajalec;Posebnosti;Slike;Cena;Prodano
 86;DB;80;de;Roco;;20230507_105644,20230507_105655;70;
 87;DB;55;de;?;;20230507_105802,20230507_105812;60;
 88;Santa Fe;F9;us;Mehano;;20230507_110051,20230507_110243;10;x
-89;CP Rail;6527;ca;Mehano;;m1;10;
+89;CP Rail;6527;ca;Mehano;;m1;10;x
 90;;1540;us;Mehano;;m2;10;
 91;Southern;2060;us;Mehano;;m3;10;
 92;Amtrak;5858;us;Mehano;;m4;20;
